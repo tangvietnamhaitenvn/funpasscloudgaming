@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funpass - Chơi Game Đám Mây Không Giới Hạn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS === */
+        /* Reset and General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Sử dụng Poppins */
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f2f5; /* Màu nền nhẹ */
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky; /* Sticky header */
+            top: 0;
+            z-index: 100; /* Để header luôn nổi lên trên */
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px; /* Tăng khoảng cách */
+        }
+
+        nav a {
+            color: #444; /* Màu chữ đậm hơn */
+            font-weight: 500;
+            transition: all 0.3s ease; /* Hiệu ứng mượt mà hơn */
+            padding: 0.5rem 1rem; /* Thêm padding */
+            border-radius: 5px; /* Bo tròn */
+        }
+
+        nav a:hover {
+            color: #0056b3;
+            background-color: rgba(0, 123, 255, 0.1); /* Màu nền nhạt khi hover */
+        }
+
+        .language-switcher select {
+            padding: 8px 12px; /* Tăng padding */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            font-family: 'Poppins', sans-serif; /* Dùng Poppins */
+        }
+
+        .user-profile .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #fff; /* Viền avatar */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Đổ bóng */
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-background.jpg') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 5rem 2rem; /* Tăng padding */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem; /* Tăng cỡ chữ */
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Đổ bóng chữ */
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 1.2rem 2.5rem; /* Tăng padding */
+            border-radius: 8px; /* Bo tròn nhiều hơn */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Đổ bóng */
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px); /* Hiệu ứng "nổi" lên */
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4); /* Đổ bóng đậm hơn */
+        }
+
+        /* Featured Games */
+        .featured-games {
+            padding: 4rem 2rem; /* Tăng padding */
+        }
+
+        .featured-games h2 {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem; /* Tăng cỡ chữ */
+            color: #444;
+            border-bottom: 3px solid #007bff; /* Đường kẻ dưới */
+            padding-bottom: 0.5rem;
+            display: inline-block; /* Để đường kẻ vừa với chữ */
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Tăng kích thước tối thiểu */
+            gap: 25px; /* Tăng khoảng cách */
+        }
+
+        .game-item {
+            background-color: #fff;
+            border-radius: 12px; /* Bo tròn nhiều hơn */
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .game-item:hover {
+            transform: scale(1.05); /* Phóng to khi hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-item img {
+            width: 100%;
+            height: 200px; /* Tăng chiều cao */
+            object-fit: cover;
+            display: block;
+        }
+
+        .game-info {
+            padding: 20px; /* Tăng padding */
+            text-align: center;
+        }
+
+        .game-info h3 {
+            font-size: 1.3rem; /* Tăng cỡ chữ */
+            margin-bottom: 0.6rem;
+            color: #333;
+        }
+
+        .game-category {
+            color: #777; /* Màu chữ nhạt hơn */
+            font-size: 1rem;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem; /* Tăng cỡ icon */
+            color: rgba(255, 255, 255, 0.9); /* Màu trắng hơn */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1; /* Đảm bảo icon nằm trên ảnh */
+        }
+
+        .game-item:hover .play-icon {
+            opacity: 1;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            background-color: #f9f9f9;
+            text-align: center;
+             border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .about h2 {
+            margin-bottom: 1.5rem;
+              font-size: 2.2rem;
+            color: #444;
+        }
+        .about p{
+            max-width: 800px; /* Giới hạn độ rộng */
+            margin: 0 auto; /* Căn giữa */
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 4rem 2rem;
+        }
+
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem;
+            color: #444;
+             border-bottom: 3px solid #007bff; /* Đường kẻ dưới */
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px; /* Bo tròn */
+            overflow: hidden; /* Để bo tròn hoạt động với nội dung bên trong */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #eee;
+        }
+
+        .faq-answer {
+            padding: 1.2rem 1.5rem;
+            display: none;
+            background-color: #fff;
+            color: #555;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg); /* Xoay icon khi active */
+        }
+        .faq-question i{
+          transition: transform 0.3s ease; /* Thêm transition cho icon */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222; /* Màu nền đậm hơn */
+            color: #ddd;
+            padding: 3rem 0; /* Tăng padding */
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem; /* Tăng khoảng cách */
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.2rem;
+            color: #fff;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #007bff; /* Đường kẻ dưới */
+            padding-bottom: 0.3rem;
+            display: inline-block;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li a {
+            color: #bbb; /* Màu chữ nhạt hơn */
+            transition: color 0.3s ease;
+            display: block; /* Để link chiếm toàn bộ chiều rộng */
+            padding: 0.3rem 0; /* Thêm padding */
+        }
+
+        .footer-section ul li a:hover {
+            color: #fff;
+            text-decoration: underline; /* Gạch chân khi hover */
+        }
+
+        .social-icons a {
+            color: #bbb;
+            margin-right: 15px; /* Tăng khoảng cách */
+            font-size: 1.4rem; /* Tăng cỡ icon */
+            transition: color 0.3s ease;
+            display: inline-block; /* Để transform hoạt động */
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+            transform: scale(1.2); /* Phóng to khi hover */
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+        .show-more {
+            text-align: center;
+            margin-top: 30px; /* Tăng khoảng cách */
+        }
+
+        .show-more button {
+            padding: 12px 25px; /* Tăng padding */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px; /* Bo tròn nhiều hơn */
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 123, 255, 0.3);
+        }
+
+        .show-more button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Hiệu ứng "nổi" lên */
+            box-shadow: 0 5px 10px rgba(0, 123, 255, 0.4);
+        }
+
+        /* Thêm hiệu ứng loading nhẹ cho ảnh (optional) */
+        .game-item img {
+            opacity: 0; /* Ẩn ảnh ban đầu */
+            transition: opacity 0.5s ease; /* Hiệu ứng mờ dần */
+        }
+
+        .game-item img.loaded {
+            opacity: 1; /* Hiển thị ảnh khi đã load xong */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="https://www.funpg.net/"><img src="funpass-logo.png" alt="Funpass Logo"></a>  <!-- Thay funpass-logo.png bằng logo thực tế -->
+        </div>
+        <nav>
+            <ul>
+                <li><a href="https://www.funpg.net/">Trang Chủ</a></li>
+                <li><a href="https://www.funpg.net/category">Thể Loại</a></li>
+                <li><a href="https://www.funpg.net/blog">Blog</a></li>
+                <li><a href="https://www.funpg.net/faq">Câu Hỏi Thường Gặp</a></li>
+                <li><a href="https://www.funpg.net/download">Tải Xuống</a></li>
+            </ul>
+        </nav>
+        <div class="language-switcher">
+          <select id="language-select">
+                <option value="vi">Tiếng Việt</option>
+                <option value="en">English</option>
+                <!-- Thêm các ngôn ngữ khác nếu cần -->
+          </select>
+        </div>
+        <div class="user-profile">
+             <!-- Thay bằng hình avatar thực tế -->
+            <a href="#"><img src="avatar-placeholder.png" alt="User Avatar" class="avatar"></a>
+        </div>
+
+    </header>
+
+    <section class="hero">
+        <h1>Chơi Game Đỉnh Cao, Không Cần Tải Về!</h1>
+        <p>Trải nghiệm hàng ngàn game PC và mobile hot nhất ngay trên trình duyệt của bạn.</p>
+        <a href="https://www.funpg.net/category" class="cta-button">Khám Phá Ngay</a>
+    </section>
+
+    <section class="featured-games">
+        <h2>Game Nổi Bật</h2>
+        <div class="game-grid">
+            <!-- Game Item 1 -->
+            <div class="game-item">
+                <a href="https://www.funpg.net/game/honkai-star-rail">  <!-- Thay link bằng link game thực tế -->
+                    <img src="honkai-star-rail-icon.jpg" alt="Honkai: Star Rail" loading="lazy"> <!-- Thay bằng icon/thumbnail game, thêm loading="lazy" -->
+                    <div class="game-info">
+                        <h3>Honkai: Star Rail</h3>
+                        <span class="game-category">Nhập Vai Hành Động</span>
+                         <i class="fas fa-play-circle play-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Game Item 2 -->
+            <div class="game-item">
+                <a href="https://www.funpg.net/game/genshin-impact">
+                    <img src="genshin-impact-icon.jpg" alt="Genshin Impact" loading="lazy">
+                    <div class="game-info">
+                        <h3>Genshin Impact</h3>
+                        <span class="game-category">Thế Giới Mở</span>
+                         <i class="fas fa-play-circle play-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Game Item 3 -->
+            <div class="game-item">
+                <a href="https://www.funpg.net/game/wuthering-waves">
+                    <img src="wuthering-waves-icon.jpg" alt="Wuthering Waves" loading="lazy">
+                    <div class="game-info">
+                        <h3>Wuthering Waves</h3>
+                        <span class="game-category">Hành Động</span>
+                         <i class="fas fa-play-circle play-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Game Item 4 -->
+             <div class="game-item">
+                <a href="https://www.funpg.net/game/infinity-nikki">
+                    <img src="infinity-nikki-icon.jpg" alt="Infinity Nikki" loading="lazy">
+                    <div class="game-info">
+                        <h3>Infinity Nikki</h3>
+                        <span class="game-category">Phiêu Lưu Thời Trang</span>
+                         <i class="fas fa-play-circle play-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Game Item 5 -->
+            <div class="game-item">
+                <a href="https://www.funpg.net/game/mobile-legends">
+                    <img src="mobile-legends-icon.jpg" alt="Mobile Legends: Bang Bang" loading="lazy">
+                    <div class="game-info">
+                        <h3>Mobile Legends</h3>
+                        <span class="game-category">MOBA</span>
+                         <i class="fas fa-play-circle play-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Game Item 6 -->
+              <div class="game-item">
+                <a href="https://www.funpg.net/game/roblox">
+                    <img src="roblox-icon.jpg" alt="roblox" loading="lazy">
+                    <div class="game-info">
+                        <h3>Roblox</h3>
+                        <span class="game-category">Thế giới mở</span>
+                         <i class="fas fa-play-circle play-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Thêm các game item khác vào đây -->
+
+        </div>
+        <div class="show-more">
+          <button id = "show-more-btn">Hiển thị thêm</button>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>Funpass là gì?</h2>
+        <p>Funpass là nền tảng chơi game đám mây cho phép bạn chơi game PC và mobile trực tiếp trên trình duyệt mà không cần tải về. Chơi mọi lúc, mọi nơi, trên mọi thiết bị!</p>
+         <p>Funpass mang lại niềm vui cho mọi lứa tuổi. Khám phá những trò chơi đã được chúng tôi lựa chọn cẩn thận để đảm bảo sự vui vẻ và an toàn.
+        </p>
+    </section>
+
+      <section class="faq">
+        <h2>Câu hỏi thường gặp</h2>
+        <div class="faq-item">
+            <h3 class="faq-question">Tôi có cần tải game về không? <i class="fas fa-chevron-down"></i></h3>
+            <p class="faq-answer">Không, bạn chỉ cần truy cập Funpass qua trình duyệt hoặc ứng dụng và chơi ngay lập tức.</p>
+        </div>
+          <div class="faq-item">
+            <h3 class="faq-question">Funpass có miễn phí không?<i class="fas fa-chevron-down"></i></h3>
+            <p class="faq-answer">Funpass có thể cung cấp các gói dịch vụ khác nhau (miễn phí/trả phí), bạn nên kiểm tra trang web chính thức để biết thông tin chi tiết</p>
+        </div>
+          <div class="faq-item">
+            <h3 class="faq-question">Tôi có thể chơi game với bạn bè không?<i class="fas fa-chevron-down"></i></h3>
+            <p class="faq-answer">Có, Funpass hỗ trợ rất nhiều game multiplayer.</p>
+        </div>
+        <div class="faq-item">
+            <h3 class="faq-question"> Tôi muốn gửi game yêu thích cho Funpass thì làm thế nào?<i class="fas fa-chevron-down"></i></h3>
+            <p class="faq-answer">Bạn có thể tìm kiếm trò chơi trên trang web, nếu không có thì sử dụng chức năng feedback.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Liên Hệ</h4>
+                <p>Email: funpassgame@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Theo Dõi Chúng Tôi</h4>
+                <div class="social-icons">
+                    <!-- Thay bằng link mạng xã hội thực tế -->
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Sản Phẩm</h4>
+                <ul>
+                    <li><a href="#">GameGazer</a></li>
+                    <li><a href="#">ldcloud</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Dịch Vụ</h4>
+                <ul>
+                    <li><a href="#">Điều khoản dịch vụ</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                     <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+         <div class="footer-bottom">
+            <p>© 2024 LDVERSE TECHNOLOGY CO., LIMITED. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // === JavaScript ===
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Show More Button
+        document.addEventListener('DOMContentLoaded', () => {
+          const showMoreBtn = document.getElementById('show-more-btn');
+          const gameGrid = document.querySelector('.game-grid');
+          let initiallyDisplayedGames = 6;
+          const games = Array.from(document.querySelectorAll('.game-item'));
+
+          function hideExtraGames() {
+              for (let i = initiallyDisplayedGames; i < games.length; i++) {
+                  games[i].style.display = 'none';
+              }
+          }
+
+          function showMoreGames() {
+              let nextBatch = initiallyDisplayedGames + 6;
+                for (let i = initiallyDisplayedGames; i < nextBatch && i < games.length; i++) {
+                    games[i].style.display = 'block';
+                      // Kiểm tra xem ảnh đã load chưa và thêm class 'loaded'
+                    const img = games[i].querySelector('img');
+                    if (img.complete) { // Kiểm tra xem ảnh đã load chưa
+                        img.classList.add('loaded');
+                    } else {
+                        img.addEventListener('load', () => {
+                            img.classList.add('loaded');
+                        });
+                    }
+                }
+              initiallyDisplayedGames = nextBatch;
+              if (initiallyDisplayedGames >= games.length) {
+                  showMoreBtn.style.display = 'none';
+              }
+          }
+
+          hideExtraGames();
+          showMoreBtn.addEventListener('click', showMoreGames);
+
+             // Thêm class 'loaded' cho ảnh sau khi load (cho hiệu ứng loading)
+            const images = document.querySelectorAll('.game-item img');
+            images.forEach(img => {
+              if (img.complete) {
+                img.classList.add('loaded');
+              } else {
+                img.addEventListener('load', () => {
+                    img.classList.add('loaded');
+                });
+              }
+            });
+        });
+
+
+        // Language Switcher (Basic Example)
+        const languageSelect = document.getElementById('language-select');
+        languageSelect.addEventListener('change', () => {
+            const selectedLanguage = languageSelect.value;
+            if (selectedLanguage === 'en') {
+                alert('Switching to English (This is a placeholder. Real translation would require more code.)');
+            } else if (selectedLanguage === 'vi') {
+                alert('Chuyển sang tiếng Việt (Đây là phần giữ chỗ.  Việc dịch thực tế cần nhiều code hơn.)');
+            }
+        });
+
+    </script>
+</body>
+</html>
