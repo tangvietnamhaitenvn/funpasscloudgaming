@@ -3,626 +3,660 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funpass - Chơi Game Đám Mây Không Giới Hạn</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>FunPass CloudGaming - Chơi game trực tuyến miễn phí</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#FF6B6B',
+                        dark: {
+                            bg: '#181818',
+                            card: '#242424'
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Check for dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
     <style>
-        /* === CSS === */
-        /* Reset and General Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
         body {
-            font-family: 'Poppins', sans-serif; /* Sử dụng Poppins */
-            line-height: 1.6;
-            color: #333;
-            background-color: #f0f2f5; /* Màu nền nhẹ */
+            font-family: 'Roboto', sans-serif;
         }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        /* Header */
-        header {
-            background-color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: sticky; /* Sticky header */
-            top: 0;
-            z-index: 100; /* Để header luôn nổi lên trên */
-        }
-
-        .logo img {
-            height: 50px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 25px; /* Tăng khoảng cách */
-        }
-
-        nav a {
-            color: #444; /* Màu chữ đậm hơn */
-            font-weight: 500;
-            transition: all 0.3s ease; /* Hiệu ứng mượt mà hơn */
-            padding: 0.5rem 1rem; /* Thêm padding */
-            border-radius: 5px; /* Bo tròn */
-        }
-
-        nav a:hover {
-            color: #0056b3;
-            background-color: rgba(0, 123, 255, 0.1); /* Màu nền nhạt khi hover */
-        }
-
-        .language-switcher select {
-            padding: 8px 12px; /* Tăng padding */
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            font-family: 'Poppins', sans-serif; /* Dùng Poppins */
-        }
-
-        .user-profile .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid #fff; /* Viền avatar */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Đổ bóng */
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-background.jpg') no-repeat center center/cover;
-            color: #fff;
-            text-align: center;
-            padding: 5rem 2rem; /* Tăng padding */
-        }
-
-        .hero h1 {
-            font-size: 3.5rem; /* Tăng cỡ chữ */
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Đổ bóng chữ */
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            padding: 1.2rem 2.5rem; /* Tăng padding */
-            border-radius: 8px; /* Bo tròn nhiều hơn */
-            font-weight: 600;
+        
+        .game-card {
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Đổ bóng */
         }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px); /* Hiệu ứng "nổi" lên */
-            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4); /* Đổ bóng đậm hơn */
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-
-        /* Featured Games */
-        .featured-games {
-            padding: 4rem 2rem; /* Tăng padding */
+        
+        .active-nav {
+            border-bottom: 3px solid #5D5CDE;
+            color: #5D5CDE;
         }
-
-        .featured-games h2 {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            font-size: 2.2rem; /* Tăng cỡ chữ */
-            color: #444;
-            border-bottom: 3px solid #007bff; /* Đường kẻ dưới */
-            padding-bottom: 0.5rem;
-            display: inline-block; /* Để đường kẻ vừa với chữ */
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxODE4MzYiLz48L3N2Zz4=');
+            background-size: cover;
+            background-position: center;
         }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Tăng kích thước tối thiểu */
-            gap: 25px; /* Tăng khoảng cách */
+        
+        .dark .card-bg {
+            background-color: #242424;
         }
-
-        .game-item {
-            background-color: #fff;
-            border-radius: 12px; /* Bo tròn nhiều hơn */
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+        
+        .logo-text {
+            background: linear-gradient(90deg, #5D5CDE, #9747FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .game-item:hover {
-            transform: scale(1.05); /* Phóng to khi hover */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-
-        .game-item img {
-            width: 100%;
-            height: 200px; /* Tăng chiều cao */
-            object-fit: cover;
-            display: block;
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
-
-        .game-info {
-            padding: 20px; /* Tăng padding */
-            text-align: center;
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #2a2a2a;
         }
-
-        .game-info h3 {
-            font-size: 1.3rem; /* Tăng cỡ chữ */
-            margin-bottom: 0.6rem;
-            color: #333;
+        
+        ::-webkit-scrollbar-thumb {
+            background: #5D5CDE;
+            border-radius: 10px;
         }
-
-        .game-category {
-            color: #777; /* Màu chữ nhạt hơn */
-            font-size: 1rem;
-        }
-
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem; /* Tăng cỡ icon */
-            color: rgba(255, 255, 255, 0.9); /* Màu trắng hơn */
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1; /* Đảm bảo icon nằm trên ảnh */
-        }
-
-        .game-item:hover .play-icon {
-            opacity: 1;
-        }
-
-        /* About Section */
-        .about {
-            padding: 4rem 2rem;
-            background-color: #f9f9f9;
-            text-align: center;
-             border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .about h2 {
-            margin-bottom: 1.5rem;
-              font-size: 2.2rem;
-            color: #444;
-        }
-        .about p{
-            max-width: 800px; /* Giới hạn độ rộng */
-            margin: 0 auto; /* Căn giữa */
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        /* FAQ Section */
-        .faq {
-            padding: 4rem 2rem;
-        }
-
-        .faq h2 {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            font-size: 2.2rem;
-            color: #444;
-             border-bottom: 3px solid #007bff; /* Đường kẻ dưới */
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        .faq-item {
-            margin-bottom: 1.5rem;
-            border: 1px solid #ddd;
-            border-radius: 8px; /* Bo tròn */
-            overflow: hidden; /* Để bo tròn hoạt động với nội dung bên trong */
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .faq-question {
-            padding: 1.2rem 1.5rem;
-            background-color: #f5f5f5;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background-color: #eee;
-        }
-
-        .faq-answer {
-            padding: 1.2rem 1.5rem;
-            display: none;
-            background-color: #fff;
-            color: #555;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg); /* Xoay icon khi active */
-        }
-        .faq-question i{
-          transition: transform 0.3s ease; /* Thêm transition cho icon */
-        }
-
-        /* Footer */
-        footer {
-            background-color: #222; /* Màu nền đậm hơn */
-            color: #ddd;
-            padding: 3rem 0; /* Tăng padding */
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-section {
-            margin-bottom: 1.5rem; /* Tăng khoảng cách */
-        }
-
-        .footer-section h4 {
-            margin-bottom: 1.2rem;
-            color: #fff;
-            font-size: 1.2rem;
-            border-bottom: 2px solid #007bff; /* Đường kẻ dưới */
-            padding-bottom: 0.3rem;
-            display: inline-block;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li a {
-            color: #bbb; /* Màu chữ nhạt hơn */
-            transition: color 0.3s ease;
-            display: block; /* Để link chiếm toàn bộ chiều rộng */
-            padding: 0.3rem 0; /* Thêm padding */
-        }
-
-        .footer-section ul li a:hover {
-            color: #fff;
-            text-decoration: underline; /* Gạch chân khi hover */
-        }
-
-        .social-icons a {
-            color: #bbb;
-            margin-right: 15px; /* Tăng khoảng cách */
-            font-size: 1.4rem; /* Tăng cỡ icon */
-            transition: color 0.3s ease;
-            display: inline-block; /* Để transform hoạt động */
-        }
-
-        .social-icons a:hover {
-            color: #fff;
-            transform: scale(1.2); /* Phóng to khi hover */
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #444;
-            color: #888;
-        }
-        .show-more {
-            text-align: center;
-            margin-top: 30px; /* Tăng khoảng cách */
-        }
-
-        .show-more button {
-            padding: 12px 25px; /* Tăng padding */
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 8px; /* Bo tròn nhiều hơn */
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 6px rgba(0, 123, 255, 0.3);
-        }
-
-        .show-more button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px); /* Hiệu ứng "nổi" lên */
-            box-shadow: 0 5px 10px rgba(0, 123, 255, 0.4);
-        }
-
-        /* Thêm hiệu ứng loading nhẹ cho ảnh (optional) */
-        .game-item img {
-            opacity: 0; /* Ẩn ảnh ban đầu */
-            transition: opacity 0.5s ease; /* Hiệu ứng mờ dần */
-        }
-
-        .game-item img.loaded {
-            opacity: 1; /* Hiển thị ảnh khi đã load xong */
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4848c2;
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <a href="https://www.funpg.net/"><img src="funpass-logo.png" alt="Funpass Logo"></a>  <!-- Thay funpass-logo.png bằng logo thực tế -->
-        </div>
-        <nav>
-            <ul>
-                <li><a href="https://www.funpg.net/">Trang Chủ</a></li>
-                <li><a href="https://www.funpg.net/category">Thể Loại</a></li>
-                <li><a href="https://www.funpg.net/blog">Blog</a></li>
-                <li><a href="https://www.funpg.net/faq">Câu Hỏi Thường Gặp</a></li>
-                <li><a href="https://www.funpg.net/download">Tải Xuống</a></li>
-            </ul>
-        </nav>
-        <div class="language-switcher">
-          <select id="language-select">
-                <option value="vi">Tiếng Việt</option>
-                <option value="en">English</option>
-                <!-- Thêm các ngôn ngữ khác nếu cần -->
-          </select>
-        </div>
-        <div class="user-profile">
-             <!-- Thay bằng hình avatar thực tế -->
-            <a href="#"><img src="avatar-placeholder.png" alt="User Avatar" class="avatar"></a>
-        </div>
-
-    </header>
-
-    <section class="hero">
-        <h1>Chơi Game Đỉnh Cao, Không Cần Tải Về!</h1>
-        <p>Trải nghiệm hàng ngàn game PC và mobile hot nhất ngay trên trình duyệt của bạn.</p>
-        <a href="https://www.funpg.net/category" class="cta-button">Khám Phá Ngay</a>
-    </section>
-
-    <section class="featured-games">
-        <h2>Game Nổi Bật</h2>
-        <div class="game-grid">
-            <!-- Game Item 1 -->
-            <div class="game-item">
-                <a href="https://www.funpg.net/game/honkai-star-rail">  <!-- Thay link bằng link game thực tế -->
-                    <img src="honkai-star-rail-icon.jpg" alt="Honkai: Star Rail" loading="lazy"> <!-- Thay bằng icon/thumbnail game, thêm loading="lazy" -->
-                    <div class="game-info">
-                        <h3>Honkai: Star Rail</h3>
-                        <span class="game-category">Nhập Vai Hành Động</span>
-                         <i class="fas fa-play-circle play-icon"></i>
+<body class="bg-white dark:bg-dark-bg text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-dark-bg shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-gamepad text-white text-xl"></i>
                     </div>
-                </a>
-            </div>
-
-            <!-- Game Item 2 -->
-            <div class="game-item">
-                <a href="https://www.funpg.net/game/genshin-impact">
-                    <img src="genshin-impact-icon.jpg" alt="Genshin Impact" loading="lazy">
-                    <div class="game-info">
-                        <h3>Genshin Impact</h3>
-                        <span class="game-category">Thế Giới Mở</span>
-                         <i class="fas fa-play-circle play-icon"></i>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-xl logo-text">FunPass</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">CloudGaming</span>
                     </div>
-                </a>
-            </div>
-
-            <!-- Game Item 3 -->
-            <div class="game-item">
-                <a href="https://www.funpg.net/game/wuthering-waves">
-                    <img src="wuthering-waves-icon.jpg" alt="Wuthering Waves" loading="lazy">
-                    <div class="game-info">
-                        <h3>Wuthering Waves</h3>
-                        <span class="game-category">Hành Động</span>
-                         <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="https://www.funpg.net" class="py-2 px-1 active-nav font-medium text-sm">
+                        Trò chơi đám mây
+                    </a>
+                    <a href="https://www.funpg.net" class="py-2 px-1 hover:text-primary transition-colors font-medium text-sm">
+                        Điện thoại đám mây
+                    </a>
+                    <a href="https://www.funpg.net" class="py-2 px-1 hover:text-primary transition-colors font-medium text-sm">
+                        Thể loại
+                    </a>
+                    <a href="https://www.funpg.net" class="py-2 px-1 hover:text-primary transition-colors font-medium text-sm">
+                        Câu hỏi thường gặp
+                    </a>
+                    <a href="https://www.funpg.net" class="py-2 px-1 hover:text-primary transition-colors font-medium text-sm">
+                        Tải xuống
+                    </a>
+                    <a href="https://www.funpg.net" class="py-2 px-1 hover:text-primary transition-colors font-medium text-sm">
+                        Blog
+                    </a>
+                </nav>
+                
+                <!-- Right Side -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Bar -->
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Tìm kiếm trò chơi..." class="w-60 rounded-full bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                </a>
-            </div>
-
-            <!-- Game Item 4 -->
-             <div class="game-item">
-                <a href="https://www.funpg.net/game/infinity-nikki">
-                    <img src="infinity-nikki-icon.jpg" alt="Infinity Nikki" loading="lazy">
-                    <div class="game-info">
-                        <h3>Infinity Nikki</h3>
-                        <span class="game-category">Phiêu Lưu Thời Trang</span>
-                         <i class="fas fa-play-circle play-icon"></i>
+                    
+                    <!-- Language Selector -->
+                    <div class="flex items-center space-x-1 cursor-pointer">
+                        <span class="hidden md:inline text-sm">Tiếng Việt</span>
+                        <i class="fas fa-globe text-primary"></i>
                     </div>
-                </a>
-            </div>
-
-            <!-- Game Item 5 -->
-            <div class="game-item">
-                <a href="https://www.funpg.net/game/mobile-legends">
-                    <img src="mobile-legends-icon.jpg" alt="Mobile Legends: Bang Bang" loading="lazy">
-                    <div class="game-info">
-                        <h3>Mobile Legends</h3>
-                        <span class="game-category">MOBA</span>
-                         <i class="fas fa-play-circle play-icon"></i>
+                    
+                    <!-- Credits -->
+                    <div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1">
+                        <i class="fas fa-coins text-yellow-500 mr-2"></i>
+                        <span class="text-sm font-medium">0.01</span>
                     </div>
-                </a>
-            </div>
-
-            <!-- Game Item 6 -->
-              <div class="game-item">
-                <a href="https://www.funpg.net/game/roblox">
-                    <img src="roblox-icon.jpg" alt="roblox" loading="lazy">
-                    <div class="game-info">
-                        <h3>Roblox</h3>
-                        <span class="game-category">Thế giới mở</span>
-                         <i class="fas fa-play-circle play-icon"></i>
+                    
+                    <!-- User Profile -->
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                        <i class="fas fa-user text-white"></i>
                     </div>
-                </a>
-            </div>
-
-            <!-- Thêm các game item khác vào đây -->
-
-        </div>
-        <div class="show-more">
-          <button id = "show-more-btn">Hiển thị thêm</button>
-        </div>
-    </section>
-
-    <section class="about">
-        <h2>Funpass là gì?</h2>
-        <p>Funpass là nền tảng chơi game đám mây cho phép bạn chơi game PC và mobile trực tiếp trên trình duyệt mà không cần tải về. Chơi mọi lúc, mọi nơi, trên mọi thiết bị!</p>
-         <p>Funpass mang lại niềm vui cho mọi lứa tuổi. Khám phá những trò chơi đã được chúng tôi lựa chọn cẩn thận để đảm bảo sự vui vẻ và an toàn.
-        </p>
-    </section>
-
-      <section class="faq">
-        <h2>Câu hỏi thường gặp</h2>
-        <div class="faq-item">
-            <h3 class="faq-question">Tôi có cần tải game về không? <i class="fas fa-chevron-down"></i></h3>
-            <p class="faq-answer">Không, bạn chỉ cần truy cập Funpass qua trình duyệt hoặc ứng dụng và chơi ngay lập tức.</p>
-        </div>
-          <div class="faq-item">
-            <h3 class="faq-question">Funpass có miễn phí không?<i class="fas fa-chevron-down"></i></h3>
-            <p class="faq-answer">Funpass có thể cung cấp các gói dịch vụ khác nhau (miễn phí/trả phí), bạn nên kiểm tra trang web chính thức để biết thông tin chi tiết</p>
-        </div>
-          <div class="faq-item">
-            <h3 class="faq-question">Tôi có thể chơi game với bạn bè không?<i class="fas fa-chevron-down"></i></h3>
-            <p class="faq-answer">Có, Funpass hỗ trợ rất nhiều game multiplayer.</p>
-        </div>
-        <div class="faq-item">
-            <h3 class="faq-question"> Tôi muốn gửi game yêu thích cho Funpass thì làm thế nào?<i class="fas fa-chevron-down"></i></h3>
-            <p class="faq-answer">Bạn có thể tìm kiếm trò chơi trên trang web, nếu không có thì sử dụng chức năng feedback.</p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Liên Hệ</h4>
-                <p>Email: funpassgame@gmail.com</p>
-            </div>
-            <div class="footer-section">
-                <h4>Theo Dõi Chúng Tôi</h4>
-                <div class="social-icons">
-                    <!-- Thay bằng link mạng xã hội thực tế -->
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-gray-500 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
                 </div>
             </div>
-            <div class="footer-section">
-                <h4>Sản Phẩm</h4>
-                <ul>
-                    <li><a href="#">GameGazer</a></li>
-                    <li><a href="#">ldcloud</a></li>
-                </ul>
-            </div>
+        </div>
+    </header>
 
-            <div class="footer-section">
-                <h4>Dịch Vụ</h4>
-                <ul>
-                    <li><a href="#">Điều khoản dịch vụ</a></li>
-                    <li><a href="#">Chính sách bảo mật</a></li>
-                     <li><a href="#">FAQ</a></li>
-                </ul>
+    <!-- Hero Banner Section -->
+    <section class="hero-section relative py-10 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="text-white z-10">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">Honkai: Star Rail</h1>
+                    <p class="text-gray-300 mb-6 text-sm">com.HoYoverse.hkrpgoversea</p>
+                    <button class="bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition-all flex items-center">
+                        <i class="fas fa-play mr-2"></i>
+                        CHƠI
+                    </button>
+                </div>
+                <div class="hidden md:block">
+                    <!-- Game art would go here in a real implementation -->
+                </div>
             </div>
         </div>
-         <div class="footer-bottom">
-            <p>© 2024 LDVERSE TECHNOLOGY CO., LIMITED. All rights reserved.</p>
+    </section>
+
+    <!-- Games Grid Section -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <!-- Game Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                <!-- Game 1 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-purple-500 to-indigo-600 flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Honkai: Star Rail</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 2 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-blue-500 to-teal-600 flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Genshin Impact</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 3 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-pink-500 to-rose-600 flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Infinity Nikki</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 4 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-yellow-500 to-orange-600 flex items-center justify-center">
+                            <div class="absolute top-1 right-1 bg-yellow-500 text-xs px-2 py-0.5 rounded font-bold">
+                                2ND
+                            </div>
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Goddess of Victory: Nikke</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 5 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-purple-800 to-indigo-900 flex items-center justify-center">
+                            <div class="absolute top-1 right-1 bg-yellow-500 text-xs px-2 py-0.5 rounded font-bold">
+                                MAX
+                            </div>
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Free Fire MAX</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 6 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-amber-500 to-yellow-600 flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">GIRLS' FRONTLINE 2</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 7 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-gray-700 to-gray-900 flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Wuthering Waves</h3>
+                    </div>
+                </div>
+                
+                <!-- Game 8 -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="relative pb-[100%]">
+                        <div class="absolute inset-0 bg-gradient-to-b from-gray-300 to-gray-500 flex items-center justify-center">
+                            <i class="fas fa-cube text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-2 bg-white dark:bg-dark-card text-center">
+                        <h3 class="font-medium text-sm truncate">Roblox</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More Games Button -->
+            <div class="text-center mt-8">
+                <button class="bg-white dark:bg-dark-card hover:bg-gray-100 dark:hover:bg-gray-700 text-primary font-medium py-2 px-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors">
+                    Hiển thị thêm <i class="fas fa-chevron-down ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-8 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6">Khám phá theo thể loại</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <a href="https://www.funpg.net" class="bg-white dark:bg-dark-card rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <i class="fas fa-fire text-orange-500 text-2xl mb-2"></i>
+                    <h3 class="font-medium">Nổi bật</h3>
+                </a>
+                
+                <a href="https://www.funpg.net" class="bg-white dark:bg-dark-card rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <i class="fas fa-mask text-purple-500 text-2xl mb-2"></i>
+                    <h3 class="font-medium">Anime</h3>
+                </a>
+                
+                <a href="https://www.funpg.net" class="bg-white dark:bg-dark-card rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <i class="fas fa-football-ball text-green-500 text-2xl mb-2"></i>
+                    <h3 class="font-medium">Thể thao</h3>
+                </a>
+                
+                <a href="https://www.funpg.net" class="bg-white dark:bg-dark-card rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <i class="fas fa-hat-wizard text-blue-500 text-2xl mb-2"></i>
+                    <h3 class="font-medium">RPG</h3>
+                </a>
+                
+                <a href="https://www.funpg.net" class="bg-white dark:bg-dark-card rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <i class="fas fa-fist-raised text-red-500 text-2xl mb-2"></i>
+                    <h3 class="font-medium">Hành động</h3>
+                </a>
+                
+                <a href="https://www.funpg.net" class="bg-white dark:bg-dark-card rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <i class="fas fa-car-side text-yellow-500 text-2xl mb-2"></i>
+                    <h3 class="font-medium">Đua xe</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold mb-6 text-center">FunPass là gì</h2>
+                
+                <div class="space-y-8">
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-xl mb-3">Trò chơi trực tuyến - Chơi mọi lúc, mọi nơi</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Khám phá thế giới hào hứng với bộ sưu tập trò chơi trực tuyến đa dạng của chúng tôi, dễ dàng truy cập mà không cần tải xuống. Sẵn sàng đắm mình trong niềm vui bất tận, dù chơi một mình, thách thức bạn bè, hay tìm kiếm những cuộc phiêu lưu nhiều người chơi thú vị.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-xl mb-3">Trò chơi trực tuyến trong tầm tay bạn</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Chơi trực tuyến từ nhiều trò chơi thú vị, bao gồm Roblox, Blodio và Poppy Playtime. Bạn có thể tìm thấy trò chơi phù hợp với tâm trạng và sở thích của mình trong các thể loại trò chơi khác nhau, chẳng hạn như trò chơi thẻ bài, trò chơi thể thao, trò chơi bắn súng, trò chơi ludo, trò chơi solitaire, trò chơi trình duyệt, trò chơi câu đố và những trải nghiệm chơi game thú vị. Bắt đầu chơi ngay và tận hưởng!
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-xl mb-3">Cuộc phiêu lưu nhiều người chơi đang chờ đợi</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Chơi game trực tuyến với bạn bè thú vị hơn, và funpg.net đáp ứng được điều đó. Khám phá bộ sưu tập trò chơi nhiều người chơi trực tuyến của chúng tôi để chơi với bạn bè và tham gia vào các trận chiến sử thi. Bạn có thể chọn từ nhiều trò chơi như Roblox, Soul Land Reloaded, Fireboy and Watergirl 2: Light Temple, Among Us và nhiều trò chơi khác. Kết nối với bạn bè từ khắp nơi trên thế giới và bắt đầu cuộc thi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-12 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold mb-6 text-center">Câu hỏi thường gặp</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-5 shadow-sm">
+                        <button class="flex justify-between items-center w-full text-left font-medium focus:outline-none">
+                            <span>Những trò chơi nào bạn có thể chơi với bạn bè trực tuyến?</span>
+                            <i class="fas fa-chevron-down text-primary"></i>
+                        </button>
+                        <div class="mt-3 text-gray-600 dark:text-gray-300">
+                            <p>Chúng tôi có các trò chơi trực tuyến thân thiện với nhiều người chơi mới ra mắt hàng ngày trên funpg.net như Mu Origin 3, World of Tanks Blitz, League of Angels: Chaos và nhiều trò chơi khác. Bạn có thể chơi trò chơi với bạn bè và tạo ra những kỷ niệm lâu dài, từ những cuộc phiêu lưu hợp tác đến những thử thách cạnh tranh.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-5 shadow-sm">
+                        <button class="flex justify-between items-center w-full text-left font-medium focus:outline-none">
+                            <span>Bạn có cần tải lên hoặc tải xuống trò chơi trực tuyến không?</span>
+                            <i class="fas fa-chevron-down text-primary"></i>
+                        </button>
+                        <div class="mt-3 text-gray-600 dark:text-gray-300">
+                            <p>Không, bạn không cần tải xuống hoặc tải lên bất cứ thứ gì để chơi các trò chơi trực tuyến của chúng tôi. Hãy truy cập funpg.net, chọn trò chơi của bạn và bắt đầu chơi ngay lập tức.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-5 shadow-sm">
+                        <button class="flex justify-between items-center w-full text-left font-medium focus:outline-none">
+                            <span>Tôi có thể chơi trò chơi trực tuyến miễn phí ở đâu mà không cần tải xuống?</span>
+                            <i class="fas fa-chevron-down text-primary"></i>
+                        </button>
+                        <div class="mt-3 text-gray-600 dark:text-gray-300">
+                            <p>Trò chơi trực tuyến không cần tải xuống. Bắt đầu khám phá trò chơi của bạn trên trang chủ của chúng tôi hoặc chọn trò chơi từ một trong những danh mục được yêu thích sau: Hành động; Thể thao; SLG; Moba.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="py-12 bg-gradient-to-r from-primary to-purple-700 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-8 md:mb-0 text-center md:text-left">
+                    <h2 class="text-3xl font-bold mb-4">Tải ứng dụng FunPass ngay!</h2>
+                    <p class="text-lg opacity-90 mb-6">Chơi mọi game yêu thích của bạn ở bất kỳ đâu</p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="https://www.funpg.net" class="flex items-center justify-center bg-black rounded-xl px-6 py-3 hover:bg-opacity-80 transition-all">
+                            <i class="fab fa-apple text-2xl mr-3"></i>
+                            <div>
+                                <div class="text-xs">Tải xuống cho</div>
+                                <div class="font-bold">App Store</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.funpg.net" class="flex items-center justify-center bg-black rounded-xl px-6 py-3 hover:bg-opacity-80 transition-all">
+                            <i class="fab fa-google-play text-2xl mr-3"></i>
+                            <div>
+                                <div class="text-xs">Tải xuống cho</div>
+                                <div class="font-bold">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="w-60 h-60 rounded-3xl bg-white bg-opacity-10 border border-white border-opacity-20 shadow-xl flex items-center justify-center p-4">
+                    <div class="relative w-full h-full">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-qrcode text-8xl opacity-80"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-primary text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white text-xl"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-xl logo-text">FunPass</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">CloudGaming</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        Chơi game trực tuyến miễn phí bất kỳ đâu, bất kỳ lúc nào mà không cần tải xuống.
+                    </p>
+                    
+                    <div class="flex space-x-4">
+                        <a href="https://www.funpg.net" class="text-primary hover:text-opacity-80">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.funpg.net" class="text-primary hover:text-opacity-80">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.funpg.net" class="text-primary hover:text-opacity-80">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.funpg.net" class="text-primary hover:text-opacity-80">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Sản phẩm</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">GameGazer</a></li>
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">IdCloud</a></li>
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">FunPass Pro</a></li>
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">FunPass Premium</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Liên kết hữu ích</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">Thể loại</a></li>
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">Câu hỏi thường gặp</a></li>
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">Blog</a></li>
+                        <li><a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary">Về chúng tôi</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Liên hệ</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        Có câu hỏi hoặc phản hồi? Liên hệ với chúng tôi!
+                    </p>
+                    
+                    <a href="mailto:funpassgame@gmail.com" class="inline-flex items-center text-primary">
+                        <i class="far fa-envelope mr-2"></i>
+                        funpassgame@gmail.com
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 md:mb-0">
+                    ©2024 CÔNG TY TNHH CÔNG NGHỆ LDVERSE
+                </p>
+                
+                <div class="flex space-x-6">
+                    <a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm">Điều khoản dịch vụ</a>
+                    <a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm">Chính sách bảo mật</a>
+                    <a href="https://www.funpg.net" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm">Chính sách cookie</a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- Mobile Navigation Menu (Hidden by default) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white dark:bg-dark-bg h-full w-3/4 max-w-sm overflow-y-auto">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-gamepad text-white text-sm"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg logo-text">FunPass</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">CloudGaming</span>
+                    </div>
+                </div>
+                
+                <button id="closeMenu" class="text-gray-500 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="relative mb-6">
+                    <input type="text" placeholder="Tìm kiếm trò chơi..." class="w-full rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary">
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <nav class="space-y-1">
+                    <a href="https://www.funpg.net" class="flex items-center text-primary p-3 rounded-lg bg-primary bg-opacity-10">
+                        <i class="fas fa-cloud-download-alt mr-3"></i>
+                        <span>Trò chơi đám mây</span>
+                    </a>
+                    
+                    <a href="https://www.funpg.net" class="flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 p-3 rounded-lg">
+                        <i class="fas fa-mobile-alt mr-3"></i>
+                        <span>Điện thoại đám mây</span>
+                    </a>
+                    
+                    <a href="https://www.funpg.net" class="flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 p-3 rounded-lg">
+                        <i class="fas fa-th-large mr-3"></i>
+                        <span>Thể loại</span>
+                    </a>
+                    
+                    <a href="https://www.funpg.net" class="flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 p-3 rounded-lg">
+                        <i class="fas fa-question-circle mr-3"></i>
+                        <span>Câu hỏi thường gặp</span>
+                    </a>
+                    
+                    <a href="https://www.funpg.net" class="flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 p-3 rounded-lg">
+                        <i class="fas fa-download mr-3"></i>
+                        <span>Tải xuống</span>
+                    </a>
+                    
+                    <a href="https://www.funpg.net" class="flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 p-3 rounded-lg">
+                        <i class="fas fa-blog mr-3"></i>
+                        <span>Blog</span>
+                    </a>
+                </nav>
+                
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-700 dark:text-gray-300">Ngôn ngữ</span>
+                        <div class="flex items-center space-x-1 text-gray-700 dark:text-gray-300">
+                            <span>Tiếng Việt</span>
+                            <i class="fas fa-chevron-down text-xs ml-1"></i>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <a href="https://www.funpg.net" class="flex items-center justify-between p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-coins text-yellow-500 mr-3"></i>
+                                <span>Nạp tiền</span>
+                            </div>
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded">0.01</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // === JavaScript ===
-
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                item.classList.toggle('active');
-            });
+        // Mobile menu functionality
+        const menuBtn = document.querySelector('.fa-bars').parentElement;
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         });
-
-        // Show More Button
-        document.addEventListener('DOMContentLoaded', () => {
-          const showMoreBtn = document.getElementById('show-more-btn');
-          const gameGrid = document.querySelector('.game-grid');
-          let initiallyDisplayedGames = 6;
-          const games = Array.from(document.querySelectorAll('.game-item'));
-
-          function hideExtraGames() {
-              for (let i = initiallyDisplayedGames; i < games.length; i++) {
-                  games[i].style.display = 'none';
-              }
-          }
-
-          function showMoreGames() {
-              let nextBatch = initiallyDisplayedGames + 6;
-                for (let i = initiallyDisplayedGames; i < nextBatch && i < games.length; i++) {
-                    games[i].style.display = 'block';
-                      // Kiểm tra xem ảnh đã load chưa và thêm class 'loaded'
-                    const img = games[i].querySelector('img');
-                    if (img.complete) { // Kiểm tra xem ảnh đã load chưa
-                        img.classList.add('loaded');
-                    } else {
-                        img.addEventListener('load', () => {
-                            img.classList.add('loaded');
-                        });
-                    }
+        
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.bg-white.dark\\:bg-dark-card button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
                 }
-              initiallyDisplayedGames = nextBatch;
-              if (initiallyDisplayedGames >= games.length) {
-                  showMoreBtn.style.display = 'none';
-              }
-          }
-
-          hideExtraGames();
-          showMoreBtn.addEventListener('click', showMoreGames);
-
-             // Thêm class 'loaded' cho ảnh sau khi load (cho hiệu ứng loading)
-            const images = document.querySelectorAll('.game-item img');
-            images.forEach(img => {
-              if (img.complete) {
-                img.classList.add('loaded');
-              } else {
-                img.addEventListener('load', () => {
-                    img.classList.add('loaded');
-                });
-              }
             });
         });
-
-
-        // Language Switcher (Basic Example)
-        const languageSelect = document.getElementById('language-select');
-        languageSelect.addEventListener('change', () => {
-            const selectedLanguage = languageSelect.value;
-            if (selectedLanguage === 'en') {
-                alert('Switching to English (This is a placeholder. Real translation would require more code.)');
-            } else if (selectedLanguage === 'vi') {
-                alert('Chuyển sang tiếng Việt (Đây là phần giữ chỗ.  Việc dịch thực tế cần nhiều code hơn.)');
-            }
-        });
-
     </script>
 </body>
 </html>
